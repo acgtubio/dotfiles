@@ -162,7 +162,11 @@ vim.o.softtabstop = 4
 -- Add Semicolon to end
 vim.keymap.set('n', '<leader>;', '$a;<Esc>', { desc = 'Add Semicolon to end.' })
 vim.keymap.set('n', '<leader>{', '$a<space>{<CR>}<Esc>O', { desc = 'Add Brace Pair' })
-vim.keymap.set('n', '<leader>ge', ':Rex<CR>', { desc = 'GOTO NetRW' })
+vim.keymap.set('n', '<leader>ge', ':Neotree position=current<CR>', { desc = 'GOTO Neotree' })
+vim.keymap.set('n', '<C-m>', ':m +1<CR>', { desc = 'Move Down' })
+vim.keymap.set('n', '<C-n>', ':m -2<CR>', { desc = 'Move Up' })
+vim.keymap.set('v', '<C-m>', ':m +1<CR>', { desc = 'Move Down' })
+vim.keymap.set('v', '<C-n>', ':m -2<CR>', { desc = 'Move Up' })
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
@@ -243,6 +247,18 @@ require('lazy').setup({
   --
   --  This is equivalent to:
   --    require('Comment').setup({})
+
+  -- NeoTree
+  {
+    'nvim-neo-tree/neo-tree.nvim',
+    branch = 'v3.x',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
+      'MunifTanjim/nui.nvim',
+      -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+    },
+  },
 
   -- Harpoon
   {
@@ -596,6 +612,7 @@ require('lazy').setup({
         -- But for many setups, the LSP (`tsserver`) will work just fine
         tsserver = {},
         html = {},
+        templ = {},
         -- denols = {},
         --
 
@@ -915,3 +932,4 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+vim.filetype.add { extension = { templ = 'templ' } }
